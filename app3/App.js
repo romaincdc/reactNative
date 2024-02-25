@@ -1,31 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './components/HomeScreen';
-import DetailsScreen from './components/DetailScreen';
+import FavoritePage from './components/FavoritePage';
+import { FavoritesProvider } from './components/FavoritesContext'; 
+import { createStackNavigator } from '@react-navigation/stack';
+import DetailsPage from './components/DetailsPage';
+import Icon from 'react-native-vector-icons/Entypo';
 
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+const HomeStack = () => (
+  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Accueil" component={HomeScreen} />
+    <Stack.Screen name="Details" component={DetailsPage} />
+  </Stack.Navigator>
+);
 
-
-const Stack = createNativeStackNavigator();
-
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <FavoritesProvider>  
+      <NavigationContainer>
+        <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          component={HomeStack}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Favori"
+          component={FavoritePage}
+          options={{
+            tabBarLabel: 'Favori',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="heart" color={color} size={size} />
+            ),
+          }}
+        />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </FavoritesProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

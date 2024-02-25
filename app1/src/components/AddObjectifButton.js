@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {  Text, StyleSheet } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
 const AddObjectifButton = ({ onPress }) => (

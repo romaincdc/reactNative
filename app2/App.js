@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator,StyleSheet,Platform } from 'react-native';
+import { View,StyleSheet,Platform } from 'react-native';
 import LocationComponent from './components/Location';
 import WeatherComponent from './components/Weather';
 import ForecastComponent from './components/Forecast';
